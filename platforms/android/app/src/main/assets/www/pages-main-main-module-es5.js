@@ -3251,7 +3251,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>{{subject}} news</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">{{subject}} news</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <!--<ion-refresher slot=\"fixed\" (ionRefresh)=\"efeitoRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>-->\n\n  <ion-card *ngFor = \"let news of lista_news\" href={{news.url}}>\n    <ion-card-header>\n      <!--<ion-img src={{news.urlToImage}}></ion-img>-->\n      <ion-card-subtitle>{{news.publishedAt}}</ion-card-subtitle>\n      <ion-card-title>{{news.title}}</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      {{news.description}}\n    </ion-card-content>\n  </ion-card>\n\n  <ion-infinite-scroll threshold=\"100px\" (ionInfinite)=\"efeitoScrollInfinito($event)\">\n    <ion-infinite-scroll-content\n      loadingSpinner=\"circular\"\n      loadingText=\"Carregando mais notícias...\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n    <ion-title>{{title}} news</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content [fullscreen]=\"true\">\r\n  <ion-header collapse=\"condense\">\r\n    <ion-toolbar>\r\n      <ion-title size=\"large\">{{title}} news</ion-title>\r\n    </ion-toolbar>\r\n  </ion-header>\r\n\r\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"efeitoRefresh($event)\">\r\n    <ion-refresher-content></ion-refresher-content>\r\n  </ion-refresher>\r\n\r\n  <ion-card *ngFor = \"let news of lista_news\" href={{news.url}}>\r\n    <ion-card-header>\r\n      <ion-img src={{news.urlToImage}}></ion-img>\r\n      <br>\r\n      <ion-card-subtitle>{{news.publishedAt}}</ion-card-subtitle>\r\n      <ion-card-title>{{news.title}}</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      {{news.description}}\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-infinite-scroll threshold=\"100px\" (ionInfinite)=\"efeitoScrollInfinito($event)\">\r\n    <ion-infinite-scroll-content\r\n      loadingSpinner=\"circular\"\r\n      loadingText=\"Carregando mais notícias...\">\r\n    </ion-infinite-scroll-content>\r\n  </ion-infinite-scroll>\r\n</ion-content>";
       /***/
     },
 
@@ -3527,16 +3527,23 @@
       /* harmony import */
 
 
-      var src_app_news_news_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @ionic/angular */
+      "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
+      /* harmony import */
+
+
+      var src_app_news_news_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! src/app/news/news-api.service */
       "./src/app/news/news-api.service.ts");
 
       var MainPage = /*#__PURE__*/function () {
-        function MainPage(newsApi, activatedRoute) {
+        function MainPage(newsApi, activatedRoute, loadingController) {
           _classCallCheck(this, MainPage);
 
           this.newsApi = newsApi;
           this.activatedRoute = activatedRoute;
+          this.loadingController = loadingController;
           this.lista_news = new Array();
           this.page = 1;
           this.resultsPerPage = 20;
@@ -3546,7 +3553,9 @@
           key: "ngOnInit",
           value: function ngOnInit() {
             this.subject = this.activatedRoute.snapshot.paramMap.get('id');
+            this.title = this.activatedRoute.snapshot.paramMap.get('title');
             this.user = this.activatedRoute.snapshot.paramMap.get('user');
+            console.log(this.title);
           }
         }, {
           key: "efeitoRefresh",
@@ -3578,6 +3587,8 @@
               if (response.totalResults % _this14.resultsPerPage != 0) {
                 _this14.maxPage++;
               }
+
+              console.log(_this14.maxPage);
             }, function (error) {
               console.log(error);
             });
@@ -3585,26 +3596,66 @@
         }, {
           key: "ionViewDidEnter",
           value: function ionViewDidEnter() {
-            console.log(this.page);
             this.carregaPagina();
+            this.efeitoLoading();
+          }
+        }, {
+          key: "efeitoLoading",
+          value: function efeitoLoading() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var loading, _yield$loading$onDidD, role, data;
+
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.loadingController.create({
+                        message: 'Carregando as notícias',
+                        duration: 4000
+                      });
+
+                    case 2:
+                      loading = _context.sent;
+                      _context.next = 5;
+                      return loading.present();
+
+                    case 5:
+                      _context.next = 7;
+                      return loading.onDidDismiss();
+
+                    case 7:
+                      _yield$loading$onDidD = _context.sent;
+                      role = _yield$loading$onDidD.role;
+                      data = _yield$loading$onDidD.data;
+
+                    case 10:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
           }
         }, {
           key: "efeitoScrollInfinito",
           value: function efeitoScrollInfinito(event) {
             var _this15 = this;
 
-            setTimeout(function () {
-              _this15.page++;
+            if (this.page == this.maxPage) {
+              event.target.disabled = true;
+            }
 
-              _this15.carregaPagina();
+            if (this.page != this.maxPage) {
+              setTimeout(function () {
+                _this15.page++;
 
-              console.log('Done');
-              event.target.complete();
+                _this15.carregaPagina();
 
-              if (_this15.page == _this15.maxPage) {
-                event.target.disabled = true;
-              }
-            }, 4000);
+                console.log('Done');
+                event.target.complete();
+              }, 4000);
+            }
           }
         }]);
 
@@ -3613,9 +3664,11 @@
 
       MainPage.ctorParameters = function () {
         return [{
-          type: src_app_news_news_api_service__WEBPACK_IMPORTED_MODULE_3__["NewsApiService"]
+          type: src_app_news_news_api_service__WEBPACK_IMPORTED_MODULE_4__["NewsApiService"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"]
         }];
       };
 
@@ -3624,7 +3677,7 @@
         template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! raw-loader!./main.page.html */
         "./node_modules/raw-loader/dist/cjs.js!./src/app/pages/main/main.page.html"))["default"],
-        providers: [src_app_news_news_api_service__WEBPACK_IMPORTED_MODULE_3__["NewsApiService"]],
+        providers: [src_app_news_news_api_service__WEBPACK_IMPORTED_MODULE_4__["NewsApiService"]],
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./main.page.scss */
         "./src/app/pages/main/main.page.scss"))["default"]]

@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   firebaseConfig : {
-    apiKey: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    apiKey: "MY-API-KEY",
     authDomain: "apsloutfi.firebaseapp.com",
     databaseURL: "https://apsloutfi.firebaseio.com",
     projectId: "apsloutfi",

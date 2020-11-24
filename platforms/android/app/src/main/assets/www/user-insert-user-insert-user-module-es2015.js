@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Cadastrar usuário</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <form>\n    <ion-item lines=\"full\">\n      <ion-label position=\"floating\">Email</ion-label>\n      <ion-input name=\"email\" type=\"email\" [(ngModel)]=\"email\"></ion-input>\n    </ion-item>\n  \n    <ion-item lines=\"full\">\n      <ion-label position=\"floating\">Senha</ion-label>\n      <ion-input name=\"senha\" type=\"password\" [(ngModel)]=\"senha\"></ion-input>\n    </ion-item>\n  \n    <ion-row>\n      <ion-col>\n        <ion-button expand=\"block\" color=\"secondary\" type=\"submit\" (click)=\"insertUser()\">Cadastrar</ion-button>\n      </ion-col>\n    </ion-row>\n  </form>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>Cadastrar usuário</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n  <form>\r\n    <ion-item lines=\"full\">\r\n      <ion-label position=\"floating\">Email</ion-label>\r\n      <ion-input name=\"email\" type=\"email\" [(ngModel)]=\"email\"></ion-input>\r\n    </ion-item>\r\n  \r\n    <ion-item lines=\"full\">\r\n      <ion-label position=\"floating\">Senha</ion-label>\r\n      <ion-input name=\"senha\" type=\"password\" [(ngModel)]=\"senha\"></ion-input>\r\n    </ion-item>\r\n  \r\n    <ion-row>\r\n      <ion-col>\r\n        <ion-button expand=\"block\" color=\"secondary\" type=\"submit\" (click)=\"insertUser()\">Cadastrar</ion-button>\r\n      </ion-col>\r\n    </ion-row>\r\n  </form>\r\n</ion-content>\r\n");
 
 /***/ }),
 

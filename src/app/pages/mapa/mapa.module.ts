@@ -8,7 +8,6 @@ import { MapaPageRoutingModule } from './mapa-routing.module';
 
 import { MapaPage } from './mapa.page';
 
-import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   imports: [
@@ -17,6 +16,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     IonicModule,
     MapaPageRoutingModule
   ],
-  declarations: [MapaPage]
+  declarations: [MapaPage],
+
 })
 export class MapaPageModule {}
