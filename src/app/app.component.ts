@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Mapa',
-      url: 'folder/Mapa/',
+      url: 'mapa/',
       icon: 'map',
     },
     {
