@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class NewsApiService {
 
-  private chave:string = "MY-API-KEY";
+  private chave:string = "a192006ac51443b085001c4a7485c2e0";
   private caminhoPadrao:string = "https://newsapi.org/v2";
 
 
