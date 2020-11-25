@@ -145,7 +145,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n    <ion-title>Mapa</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content padding (click)=\"abc()\">\r\n  <div #map id=\"map\"></div>\r\n</ion-content>\r\n";
+      __webpack_exports__["default"] = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n    <ion-title>Mapa</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content padding>\r\n  <div #map id=\"map\"></div>\r\n</ion-content>\r\n";
       /***/
     },
 
@@ -351,36 +351,33 @@
           key: "ngOnInit",
           value: function ngOnInit() {}
         }, {
-          key: "abc",
-          value: function abc() {
-            console.log(google);
-            /* this.geolocation.getCurrentPosition({
-               timeout:5000,
-               enableHighAccuracy:true,
-             }).then((resp) => {
-                 const position = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-                        const mapOptions = {
-                   zoom: 18,
-                   center: {
-                     lat: 13,
-                     lng: 12
-                   }
-                 }
-                        this.map = new google.maps.Map(document.getElementById('map'), mapOptions);*/
+          key: "ionViewDidEnter",
+          value: function ionViewDidEnter() {
+            var _this = this;
 
-            /*const marker = new google.maps.Marker({
-              position: position,
-              map: this.map
+            this.geolocation.getCurrentPosition({
+              timeout: 5000,
+              enableHighAccuracy: true
+            }).then(function (resp) {
+              var position = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+              var mapOptions = {
+                zoom: 18,
+                center: position
+              };
+              _this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+              var marker = new google.maps.Marker({
+                position: position,
+                map: _this.map
+              });
+            })["catch"](function (error) {
+              console.log('Erro ao recuperar sua posição', error);
             });
-            }).catch((error) => {
-            console.log('Erro ao recuperar sua posição', error);
-            });
-            var watch = this.geolocation.watchPosition();
+            /*var watch = this.geolocation.watchPosition();
             watch.subscribe(
-            (data)=>{
-              this.loadMap(data);
-              console.log(data)
-            }
+              (data)=>{
+                this.loadMap(data);
+                console.log(data)
+              }
             );*/
           }
         }, {

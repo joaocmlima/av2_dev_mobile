@@ -79,7 +79,7 @@ var ɵGeolocation_BaseFactory = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MO
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n    <ion-title>Mapa</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content padding (click)=\"abc()\">\r\n  <div #map id=\"map\"></div>\r\n</ion-content>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n    <ion-title>Mapa</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content padding>\r\n  <div #map id=\"map\"></div>\r\n</ion-content>\r\n");
 
 /***/ }),
 
@@ -197,39 +197,31 @@ let MapaPage = class MapaPage {
     }
     ngOnInit() {
     }
-    abc() {
-        console.log(google);
-        /* this.geolocation.getCurrentPosition({
-           timeout:5000,
-           enableHighAccuracy:true,
-         }).then((resp) => {
-             const position = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-     
-             const mapOptions = {
-               zoom: 18,
-               center: {
-                 lat: 13,
-                 lng: 12
-               }
-             }
-     
-             this.map = new google.maps.Map(document.getElementById('map'), mapOptions);*/
-        /*const marker = new google.maps.Marker({
-          position: position,
-          map: this.map
+    ionViewDidEnter() {
+        this.geolocation.getCurrentPosition({
+            timeout: 5000,
+            enableHighAccuracy: true,
+        }).then((resp) => {
+            const position = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+            const mapOptions = {
+                zoom: 18,
+                center: position
+            };
+            this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            const marker = new google.maps.Marker({
+                position: position,
+                map: this.map
+            });
+        }).catch((error) => {
+            console.log('Erro ao recuperar sua posição', error);
         });
-
-      }).catch((error) => {
-        console.log('Erro ao recuperar sua posição', error);
-      });
-
-      var watch = this.geolocation.watchPosition();
-      watch.subscribe(
-        (data)=>{
-          this.loadMap(data);
-          console.log(data)
-        }
-      );*/
+        /*var watch = this.geolocation.watchPosition();
+        watch.subscribe(
+          (data)=>{
+            this.loadMap(data);
+            console.log(data)
+          }
+        );*/
     }
     loadMap(pos) {
         const position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);

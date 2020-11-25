@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { LoadingController } from '@ionic/angular';
-import {Map,tileLayer,marker} from 'leaflet';
+declare var google;
 
 @Component({
   selector: 'app-mapa',
@@ -12,46 +11,57 @@ import {Map,tileLayer,marker} from 'leaflet';
 export class MapaPage implements OnInit {
   map: any;
 
-  constructor(
-    private geolocation: Geolocation,
-    public loadingController:LoadingController
-    ) { }
+  constructor(private geolocation: Geolocation) { }
 
   ngOnInit(){
   }
 
   ionViewDidEnter() {
-    this.loadMap();
-    this.efeitoLoading();
-  }
+    this.geolocation.getCurrentPosition({
+      timeout:5000,
+      enableHighAccuracy:true,
+    }).then((resp) => {
+        const position = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
 
-  loadMap(){
-    this.geolocation.getCurrentPosition({timeout:10000}).then(
-      (resp) => {
-        this.map = new Map("mapId").setView([resp.coords.latitude,resp.coords.longitude], 17);
-        tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          { 
-            attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY- SA</a>'
-          }
-        ).addTo(this.map); // This line is added to add the Tile Layer to our map
-        const newMarker = marker([resp.coords.latitude,resp.coords.longitude]).addTo(this.map);
-        newMarker.bindPopup("Sua localização").openPopup();
-      }).catch(
-        (error) => {
-          console.log('Error getting location', error);
+        const mapOptions = {
+          zoom: 18,
+          center: position
+        }
+
+        this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        const marker = new google.maps.Marker({
+          position: position,
+          map: this.map
+        });
+
+      }).catch((error) => {
+        console.log('Erro ao recuperar sua posição', error);
       });
-     
+
+      /*var watch = this.geolocation.watchPosition();
+      watch.subscribe(
+        (data)=>{
+          this.loadMap(data);
+          console.log(data)
+        }
+      );*/
+
   }
 
-  async efeitoLoading(){
-    const loading = await this.loadingController.create({
-      message: 'Carregando mapa', 
-      duration: 4000
+  loadMap(pos:any){
+    const position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+    const mapOptions = {
+      zoom: 18,
+      center: position
+    }
+    this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    const marker = new google.maps.Marker({
+      position: position,
+      map: this.map
     });
-
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
   }
+
+
 
 }
